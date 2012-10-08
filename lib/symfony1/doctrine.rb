@@ -9,7 +9,7 @@ namespace :symfony do
     task :setup do
       conf_files_exists = capture("if test -s #{shared_path}/config/databases.yml ; then echo 'exists' ; fi").strip
       if (!conf_files_exists.eql?("exists"))
-        symfony.configure.database
+        symfony.configuredb.database
       end
     end
 
