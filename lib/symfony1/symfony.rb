@@ -30,7 +30,7 @@ namespace :symfony do
     run "#{try_sudo} ln -nfs #{shared_path}/symfony-#{version} #{symlink_path};"
   end
 
-  namespace :configure do
+  namespace :configuredb do
     desc "Configure database DSN"
     task :database do
       prompt_with_default(:dsn,         "mysql:host=localhost;dbname=#{application}")
@@ -40,11 +40,11 @@ namespace :symfony do
       # surpress debug log output to hide the password
       current_logger_level = self.logger.level
       if current_logger_level >= Capistrano::Logger::DEBUG
-        logger.debug %(executing "cd #{latest_release} && #{php_bin} ./symfony configure:database '#{dsn}' '#{db_username}' ***")
+        logger.debug %(executing "cd #{latest_release} && #{php_bin} ./symfony.configuredb:database '#{dsn}' '#{db_username}' ***")
         self.logger.level = Capistrano::Logger::INFO
       end
 
-      stream "cd #{latest_release} && #{php_bin} ./symfony configure:database '#{dsn}' '#{db_username}' '#{db_password}'"
+      stream "cd #{latest_release} && #{php_bin} ./symfony.configuredb:database '#{dsn}' '#{db_username}' '#{db_password}'"
 
       # restore logger level
       self.logger.level = current_logger_level

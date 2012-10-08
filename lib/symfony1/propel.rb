@@ -10,7 +10,7 @@ namespace :symfony do
 
       if (!conf_files_exists.eql?("exists"))
         run "#{try_sudo} cp #{symfony_lib}/plugins/sfPropelPlugin/config/skeleton/config/propel.ini #{shared_path}/config/propel.ini"
-        symfony.configure.database
+        symfony.configuredb.database
       end
     end
 
